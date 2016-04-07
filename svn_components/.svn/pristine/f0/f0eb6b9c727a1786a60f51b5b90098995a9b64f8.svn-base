@@ -1,0 +1,62 @@
+export default function store_user(state, action){
+    var store = {
+        user: {
+                isAdmin: false,
+                info: [
+                    {
+                        attr: 'ch_name',
+                        txt: '李康达'
+                    },
+                    {
+                        attr: 'host',
+                        txt: 'likd-a@glodon.com'
+                    },
+                    {
+                        attr: 'department',
+                        txt: '云基础服务部-平台技术部'
+                    }
+                ]
+            },
+        home: {
+            links:[
+                    {
+                        hash: '/app/components',
+                        name: '配件中心'
+                    },
+                    {
+                        hash: '/app/orders',
+                        name: '订单中心'
+                    },
+                    {
+                        hash: '/app/users',
+                        name: '用户中心'
+                    }
+            ],
+            dl: [
+                {
+                    type: 'dt',
+                    txt: '客户服务'
+                },
+                {
+                    type: 'dd',
+                    txt: '租用配件',
+                    hash: '/app/home/rent'
+                },
+                {
+                    type: 'dd',
+                    txt: '领用配件',
+                    hash: '/app/home/provide'
+                },
+                {
+                    type: 'dd',
+                    txt: '归还配件',
+                    hash: '/app/home/return'
+                }
+            ]
+        }
+    };
+    if(action.type=='store_user'){
+        store.user.isAdmin = action.value.isAdmin;
+    }
+    return store
+}

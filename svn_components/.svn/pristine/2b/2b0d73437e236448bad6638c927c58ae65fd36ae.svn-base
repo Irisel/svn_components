@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0,minimal-ui">
+    <meta content="telephone=no" name="format-detection" />
+    <link rel="stylesheet" href="/static/app/css/common.css"/>
+  </head>
+  <body>
+    <script src="/static/app/scripts/build/build.js"></script>
+  </body>
+</html>

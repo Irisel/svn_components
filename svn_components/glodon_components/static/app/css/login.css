@@ -1,0 +1,33 @@
+.login-div {
+  min-height: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: left;
+  white-space: normal;
+  padding: 40px 0;
+  width: 300px; }
+  .login-div .login-head {
+    margin-bottom: 20px; }
+  .login-div .login-action {
+    text-align: center;
+    margin: 20px auto 25px; }
+    .login-div .login-action ul {
+      list-style-type: none; }
+      .login-div .login-action ul li span {
+        padding: 4.5px;
+        border-bottom: 1px solid #5d5d5d;
+        color: #5d5d5d;
+        opacity: 1; }
+  .login-div .login-msg h2 {
+    margin: 30px 0;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1;
+    text-align: center; }
+
+#login:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-left: -0.25em; }

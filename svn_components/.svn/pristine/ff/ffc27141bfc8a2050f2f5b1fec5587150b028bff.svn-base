@@ -1,0 +1,102 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Router, Route, Link, IndexRoute, browserHistory, Redirect} from 'react-router';
+
+import {createStore, applyMiddleware} from 'redux';
+import { Provider } from 'react-redux';
+
+import Home from './containers/home'
+import Home_rent from './containers/home_rent'
+import Home_provide from './containers/home_provide'
+import Home_return from './containers/home_return'
+import Components from './containers/components'
+import Orders from './containers/orders'
+import Users from './containers/users'
+import Tpl from './containers/tpl'
+
+import homeRedu from './reducers/home'
+import tplRedu from './reducers/tpl'
+
+
+import thunkMiddleware from 'redux-thunk'
+
+const createStoreWithMiddleware = applyMiddleware(
+  thunkMiddleware
+)(createStore);
+
+let homeStore = createStoreWithMiddleware(homeRedu);
+
+let tplStore = createStore(tplRedu);
+
+class Hello extends React.Component{
+  render(){
+          return (
+              <div className="full_alert">
+                  <div className="alert">
+                      <h1>Hello World!</h1>
+                  </div>
+              </div>
+              )
+      }
+  }
+;
+
+class NotFound404 extends React.Component{
+  render(){
+          return (
+              <div className="full_alert">
+                  <div className="alert">
+                      <h1>NotFound404!</h1>
+                  </div>
+              </div>
+              )
+      }
+  }
+;
+
+
+ReactDOM.render(
+        <Provider store={homeStore}>
+	        <Router history={browserHistory}>
+                <Route path="/app/home" component={Home}>
+                    <Route path="rent" component={Home_rent}/>
+                    <Route path="provide" component={Home_provide}/>
+                    <Route path="return" component={Home_return}/>
+                </Route>
+                <Redirect from="/app/components" to="/app/components/list"/>
+                <Route path="/app/components" component={Components}>
+                    <Route path="list" component={Hello}/>
+                    <Route path="component/:id" component={Hello}/>
+                    <Route path="rent" component={Home_rent}/>
+                    <Route path="provide" component={Home_provide}/>
+                    <Route path="return" component={Home_return}/>
+                </Route>
+                <Redirect from="/app/orders" to="/app/orders/list"/>
+                <Route path="/app/orders" component={Orders}>
+                    <Route path="list" component={Hello}/>
+                    <Route path="order/:id" component={Hello}/>
+                    <Route path="rent" component={Home_rent}/>
+                    <Route path="provide" component={Home_provide}/>
+                    <Route path="return" component={Home_return}/>
+                </Route>
+                <Redirect from="/app/users" to="/app/users/list"/>
+                <Route path="/app/users" component={Users}>
+                    <Route path="list" component={Hello}/>
+                    <Route path="user/:id" component={Hello}/>
+                    <Route path="rent" component={Home_rent}/>
+                    <Route path="provide" component={Home_provide}/>
+                    <Route path="return" component={Home_return}/>
+                </Route>
+                <Redirect from="/app" to="/app/home" />
+                <Route path="*" component={NotFound404}>
+                </Route>
+	        </Router>
+        </Provider>
+	, document.getElementById('app')) ;
+
+ReactDOM.render(
+        <Provider store={tplStore}>
+            <Tpl/>
+        </Provider>
+    , document.getElementById('tpl')
+);

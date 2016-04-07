@@ -1,0 +1,27 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import {tpl_form}  from '../actions/tpl';
+
+const Search_panel = React.createClass({
+  componentDidMount: function(){
+
+  },
+  render: function(){
+      return (
+        <div>
+            <div className="query_type">
+            </div>
+            <div className="query_search">
+            </div>
+        </div>
+      );
+    }
+});
+
+function mapStateToProps(state) {
+  return {
+    propsTplvalue: state
+  }
+}
+
+export default connect(mapStateToProps)(Search_panel);

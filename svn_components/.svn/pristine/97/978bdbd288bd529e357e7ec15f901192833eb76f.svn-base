@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+import logging
+#from email.mime.image import MIMEImage
+from django.template.response import TemplateResponse
+LOG = logging.getLogger(__name__)
+
+
+def home(request):
+    #tenant_id = request.user.tenant_id
+    template_name = 'horizon/app/index.html'
+    return TemplateResponse(request, template_name, {})
+
+
+def login(request):
+    #tenant_id = request.user.tenant_id
+    template_name = 'horizon/app/login.html'
+    return TemplateResponse(request, template_name, {})

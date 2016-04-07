@@ -1,0 +1,51 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import {tpl_form}  from '../actions/tpl'
+import cx from 'classnames';
+
+const Tpl = React.createClass({
+  componentDidMount: function(){
+//      const {dispatch} = this.props;
+//      dispatch(tpl_form({
+//          show: true
+//      }));
+  },
+  render: function(){
+      var show = this.props.propsTplvalue.show;
+      var contains = this.props.propsTplvalue.contains;
+      var tpl_inner = contains.map(function(item, index){
+            switch(item.type){
+                case 'form':
+                    var inputs = item.inputs;
+                    return(
+                            <div key={index}>
+                                <Form inputs = {inputs}/>
+                            </div>
+                        );
+                default:
+                    return (
+                            <div key={index}></div>
+                        )
+            }
+      });
+      var tpl_classes= cx({
+          'tpl': true,
+          'show': show
+      });
+      return (
+        <div className={tpl_classes}>
+            <div className="inner">
+                { tpl_inner }
+            </div>
+        </div>
+      );
+    }
+});
+
+function mapStateToProps(state) {
+  return {
+    propsTplvalue: state
+  }
+}
+
+export default connect(mapStateToProps)(Tpl);

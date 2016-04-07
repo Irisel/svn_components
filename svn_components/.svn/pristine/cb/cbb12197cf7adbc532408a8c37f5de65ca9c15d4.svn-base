@@ -1,0 +1,10 @@
+export default function tpl(state, action){
+    const tpl = {
+        show: true,
+        contains: []
+    };
+    if(action.type='show_form'){
+        tpl.show = action.method?action.method.show:false;
+    }
+    return tpl
+}

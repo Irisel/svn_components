@@ -1,0 +1,243 @@
+* {
+  /*启用盒模型*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin:0;
+  padding: 0;
+}
+html{
+  height:100%;
+  /*禁止当手机由竖屏转向横屏的时内容中的文字自动调整大小*/
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -o-text-size-adjust: 100%;
+  text-size-adjust:100%;
+  /*Mobile上点击链接高亮的时候设置颜色为透明*/
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /*在IE10之上版本，不允许默认的touch行为*/
+  -ms-touch-action: none;
+}
+body{
+  height:100%;
+  /*手机字体*/
+  font-family:'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif;
+  color: #555;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
+  display: block;
+}
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+a {
+  text-decoration:none;
+  -webkit-user-select: none;
+  user-select: none;
+  border:none;
+  outline:0 none;
+  outline-style:none;
+  &:active, &:hover {
+    outline: 0;
+  }
+}
+
+span, i, img, p{
+  user-select: none;
+  -webkit-user-select:none;
+}
+
+em{font-style: normal;}
+img{
+  border:none;
+  vertical-align:top;
+}
+ul,ol{
+  list-style-type:none;
+}
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="password"],
+input[type="date"],
+textarea{
+  background:transparent;
+  outline: 0;
+  -webkit-appearance: none;
+  padding:0;
+  //-webkit-user-select:none;
+}
+
+input[type=button]{
+	-webkit-appearance:none;
+	outline:none
+}
+
+.right{
+  float: right;
+}
+
+.left{
+  float: left;
+}
+
+.app{
+  width:100%;
+  padding:20px;
+  .panel{
+    width:250px;
+    height: 100%;
+    background-color: #112438;
+    overflow-y:scroll;
+    box-sizing: border-box;
+    position:absolute;
+    font-size:14px;
+    color: #ffffff;
+    line-height:20px;
+    ul{
+      margin-bottom:10px;
+      list-style:none;
+      padding-left:0;
+      color:#333333;
+      li{
+        position: relative;
+        display:block;
+        .link{
+          color: #fff;
+          position:relative;
+          a{
+            padding:8px 13px;
+            color: #fff;
+            display:block;
+            cursor: pointer;
+          }
+
+        }
+      }
+    }
+  }
+  .content{
+    margin-left:240px;
+    color:#2a2d2e;
+    height:100%;
+    position:relative;
+    background-color: #ffffff
+  }
+}
+
+.form-common{
+  position: relative;
+  .form-rows{
+    position:relative;
+    padding:20px;
+  }
+  .form-buttons{
+    padding:15px 30px;
+    border-top: solid #eeeeee 1px;
+    background-color: #f2f2f2;
+  }
+}
+
+.btn{
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  white-space: nowrap;
+  padding: 2px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.btn-gray{
+  color: #ffffff;
+  background-color: #112438;
+  border-color: #0b1724;
+}
+
+.btn.invalid{
+  opacity: 0.5;
+}
+
+.clearfix:before, .clearfix:after{
+  content: '';
+  display: table;
+}
+
+.clearfix:after{
+  clear:both;
+}
+
+.main{
+  height:100%;
+  padding:0;
+  width:100%;
+  margin:0;
+  text-align:center
+}
+
+.common-form{
+  .form-box{
+    padding: 1px 0;
+    border: 1px solid #d5d5d5;
+    border-radius: 3px;
+    background-color: #ffffff;
+    .input-box{
+      font-size: 14px;
+      border-bottom: 1px solid #d5d5d5;
+      padding-bottom: 1px;
+      &:last-child{
+        border:none;
+        padding: none;
+      }
+      input{
+        line-height: 19px;
+        color: #555;
+        padding: 1em .8em;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: #fff;
+        font-size: inherit;
+        width: 100%;
+      }
+    }
+  }
+  .common-btn-box{
+    margin-top: 18px;
+    .form-btn{
+      background: #5bb8ff;
+      box-shadow: none;
+      border: 0;
+      border-radius: 3px;
+      line-height: 41px;
+      color: #fff;
+      text-align:center;
+      font-size:15px;
+    }
+  }
+}
+
+.login_bg{
+  background-image: url('');
+}

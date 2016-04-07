@@ -1,0 +1,219 @@
+import React from 'react';
+import cx from 'classnames';
+import { Calendar, DateRange } from 'react-date-range';
+
+const Form = React.createClass({
+    getInitialState: function(){
+        return {
+            inputs: this.props.inputs || [],
+            submit: {
+                invalid: true
+            }
+        }
+    },
+    submit: function(){
+        var form = {};
+        this.state.inputs.map(function(item, index){
+            form[item.name] = item.val;
+        });
+    },
+    changeHandle: function(index, item){
+        var _item = item,
+            _index = index,
+            _this = this;
+        return function(event){
+            var inputs = _this.state.inputs,
+                value = event.target.value,
+                submit_invalid = false;
+            inputs[_index].val = value;
+            if(_item.pattern && value){
+                inputs[_index].invalid = !_item.pattern.test(value);
+            }else{
+                inputs[_index].invalid = false;
+            }
+            inputs.map(function(i, j){
+                submit_invalid = i.invalid || submit_invalid || !i.val
+            });
+            _this.setState({
+                inputs: inputs,
+                submit: {
+                    invalid: submit_invalid
+                }
+            })
+        }
+    },
+    changeRadio: function(index, j){
+        var _index = index,
+            _this = this,
+            _j = j;
+        return function(event){
+            var inputs = _this.state.inputs;
+            inputs[_index].val = event.target.value;
+            inputs[_index].radios.map(function(item){
+               item.checked = false;
+            });
+            inputs[_index].radios[_j].checked = true;
+            _this.setState({
+                inputs: inputs
+            })
+        }
+    },
+    focus: function(item, is_focus){
+        var _this = this;
+        var _item = item,_is_focus = is_focus;
+        return function(event){
+            _item.focus = _is_focus;
+            var inputs = _this.state.inputs;
+            _this.setState({
+                inputs: inputs
+            })
+        }
+    },
+    clear: function(){
+        var inputs = this.state.inputs;
+        inputs.map(function(item, index){
+            item.val = '';
+            item.invalid = false;
+        });
+        this.setState({
+            inputs: inputs,
+            submit: {
+                invalid: true
+            }
+        })
+    },
+    dateSelect: function(index){
+        var _this = this;
+        return function(e){
+            var date = e._d;
+            var day = date.getDate(),
+                 month = date.getMonth() + 1,
+                 year = date.getFullYear(),
+                 inputs = _this.state.inputs;
+            inputs[index].val = [year, month, day].join('-');
+            _this.setState({
+                inputs: inputs
+            })
+        }
+    },
+    rangeSelect: function(index){
+        var _this = this;
+        return function(e){
+            var startDate = e.startDate._d,
+                 endDate = e.endDate._d,
+                 inputs = _this.state.inputs;
+            startDate = [startDate.getDate(), startDate.getMonth() + 1, startDate.getFullYear()].join('-');
+            endDate = [endDate.getDate(), endDate.getMonth() + 1, endDate.getFullYear()].join('-');
+            inputs[index].val = [startDate, endDate];
+            _this.setState({
+                inputs: inputs
+            })
+        }
+    },
+    render: function(){
+        var changeHandle = this.changeHandle,
+             changeRadio = this.changeRadio,
+             dateSelect = this.dateSelect,
+             rangeSelect = this.rangeSelect,
+             focus = this.focus,
+             form_data = {},
+             inputs = this.state.inputs.map(function(item, index){
+            var input_classes = cx({
+                'input-box': true,
+                'invalid': item.invalid
+            });
+            var invalid_classes= cx({
+                'invalid-label': true,
+                'invalid': item.invalid && !item.focus
+            });
+            form_data[item.name] = item.invalid?'':item.val;
+            switch(item.type){
+                case 'text':
+                    return (
+                        <div key={index}>
+                            <label>{item.label}</label>
+                            <div className= {input_classes}>
+                                <input type={item.type} name={ item.name } value={item.val} ref={item.name} onFocus={focus(item, true)} onBlur={focus(item, false)} placeholder={item.placeholder} onChange={changeHandle(index, item)}/>
+                                <label className={invalid_classes}>{item.invalid_msg}</label>
+                            </div>
+                        </div>
+                    );
+                case 'number':
+                    return (
+                        <div key={index} >
+                            <label>{item.label}</label>
+                            <div className= {input_classes}>
+                                <input type={item.type} name={ item.name } value={item.val} ref={item.name} onFocus={focus(item, true)} onBlur={focus(item, false)} placeholder={item.placeholder} onChange={changeHandle(index, item)}/>
+                                <label className={invalid_classes}>{item.invalid_msg}</label>
+                            </div>
+                        </div>
+                    );
+                case 'datepicker':
+                    return (
+                        <div key={index} >
+                            <label>{item.label}</label>
+                            <div className= {input_classes}>
+                                <Calendar onInit={dateSelect(index)} onChange={dateSelect(index)}/>
+                            </div>
+                        </div>
+                    );
+                case 'rangepicker':
+                    return (
+                        <div key={index} >
+                            <label>{item.label}</label>
+                            <div className= "rangepicker-box">
+                                <DateRange onInit={rangeSelect(index)} onChange={rangeSelect(index)}/>
+                            </div>
+                        </div>
+                    );
+                case 'radio':
+                    var radios = item.radios.map(function(i, j){
+                        return (
+                                <div key={j}>
+                                    <input type='radio' name={ item.name } checked={i.checked} value={i.val} onChange={changeRadio(index, j)} ref={item.name}/>
+                                    <span>{i.text}</span>
+                                </div>
+                            )
+                    });
+                    return (
+                        <div key={index} >
+                            <label>{item.label}</label>
+                            <div className= "radio-box">
+                                {radios}
+                            </div>
+                        </div>
+                    );
+                default:
+                    return (
+                        <div key={index} >
+                            <label></label>
+                            <div className= {input_classes}>
+                            </div>
+                        </div>
+                    );
+            }
+
+        });
+        var submit_classes = cx({
+                'form-btn': true,
+                'btn': true,
+                'invalid': this.state.submit.invalid
+        });
+        this.props.update && this.props.update(form_data);
+        return (
+                <div className="form_box">
+                    <form className="common-form">
+                        <div className="form-box">
+                            { inputs }
+                        </div>
+                        <div className="common-btn-box">
+                            <button className= {submit_classes} disabled={this.state.submit.invalid} onClick={this.submit} type="button"><span>提交</span></button>
+                            <button className= "form-btn btn" type="button" onClick={this.clear}><span>清空</span></button>
+                        </div>
+                    </form>
+                </div>
+            )
+    }
+});
+
+export default Form

@@ -1,0 +1,26 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { Provider} from 'react-redux';
+import tplStore from '../store/tplstore'
+import Search_panel from './search_panel'
+
+class List extends React.Component{
+  render(){
+          return (
+              <Provider store={tplStore}>
+                <div className="search-panel">
+                    <Search_panel/>
+                </div>
+              </Provider>
+              )
+      }
+  }
+;
+
+function mapStateToProps(state) {
+  return {
+    propsValue: state
+  }
+}
+
+export default connect(mapStateToProps)(List);

@@ -1,0 +1,199 @@
+export default function store_user(state, action){
+    var admin_store = {
+        user: {
+                isAdmin: false,
+                info: [
+
+                ]
+        },
+        home: {
+            links:[
+                    {
+                        hash: '/app/components',
+                        name: '配件中心'
+                    },
+                    {
+                        hash: '/app/orders',
+                        name: '订单中心'
+                    },
+                    {
+                        hash: '/app/users',
+                        name: '用户中心'
+                    }
+            ],
+            dl: [
+                {
+                    type: 'dt',
+                    txt: '客户服务'
+                },
+                {
+                    type: 'dd',
+                    txt: '租用配件',
+                    hash: '/app/home/rent'
+                },
+                {
+                    type: 'dd',
+                    txt: '领用配件',
+                    hash: '/app/home/provide'
+                },
+                {
+                    type: 'dd',
+                    txt: '归还配件',
+                    hash: '/app/home/return'
+                }
+            ]
+        },
+        components: {
+            dl: [
+                {
+                    type: 'dt',
+                    txt: '订单管理'
+                },
+                {
+                    type: 'dd',
+                    txt: '浏览订单',
+                    hash: '/app/components/list'
+                },
+                {
+                    type: 'dt',
+                    txt: '客户服务'
+                },
+                {
+                    type: 'dd',
+                    txt: '租用配件',
+                    hash: '/app/components/rent'
+                },
+                {
+                    type: 'dd',
+                    txt: '领用配件',
+                    hash: '/app/components/provide'
+                },
+                {
+                    type: 'dd',
+                    txt: '归还配件',
+                    hash: '/app/components/return'
+                }
+            ]
+        },
+        orders: {
+            dl: [
+                {
+                    type: 'dt',
+                    txt: '订单管理'
+                },
+                {
+                    type: 'dd',
+                    txt: '浏览订单',
+                    hash: '/app/orders/list'
+                },
+                {
+                    type: 'dt',
+                    txt: '客户服务'
+                },
+                {
+                    type: 'dd',
+                    txt: '租用配件',
+                    hash: '/app/orders/rent'
+                },
+                {
+                    type: 'dd',
+                    txt: '领用配件',
+                    hash: '/app/orders/provide'
+                },
+                {
+                    type: 'dd',
+                    txt: '归还配件',
+                    hash: '/app/orders/return'
+                }
+            ]
+        },
+        users: {
+            dl: [
+                {
+                    type: 'dt',
+                    txt: '用户管理'
+                },
+                {
+                    type: 'dd',
+                    txt: '浏览用户',
+                    hash: '/app/users/list'
+                },
+                {
+                    type: 'dt',
+                    txt: '客户服务'
+                },
+                {
+                    type: 'dd',
+                    txt: '租用配件',
+                    hash: '/app/orders/rent'
+                },
+                {
+                    type: 'dd',
+                    txt: '领用配件',
+                    hash: '/app/home/provide'
+                },
+                {
+                    type: 'dd',
+                    txt: '归还配件',
+                    hash: '/app/home/return'
+                }
+            ]
+        }
+    };
+    var store = {
+        user: {
+                isAdmin: false,
+                info: [
+
+                ]
+            },
+        home: {
+            links:[
+
+            ],
+            dl: [
+
+            ]
+        },
+        components:{
+            dl: [
+
+            ]
+        },
+        users:{
+            dl: [
+
+            ]
+        },
+        orders:{
+            dl: [
+
+            ]
+        }
+    };
+    function pack_store(role){
+        switch(role){
+            case 'admin':
+                store.home = admin_store.home;
+                store.components = admin_store.components;
+                store.orders = admin_store.orders;
+                store.users = admin_store.users;
+                break;
+            default:
+                break;
+        }
+    }
+    if(action.type=='RECEIVE_POSTS'){
+        switch(action.method){
+            case 'USER_INIT':
+                store.user.info = action.posts.info;
+                store.user.isAdmin = action.posts.isAdmin;
+                var role = store.user.isAdmin?'admin': 'customer';
+                pack_store(role);
+                break;
+            default:
+                break;
+        }
+    }
+    return store
+}

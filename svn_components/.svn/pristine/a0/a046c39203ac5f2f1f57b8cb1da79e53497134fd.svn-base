@@ -1,0 +1,6 @@
+export function storeUser(userdata){
+    return {
+        type: 'store_user',
+        value: userdata
+    }
+}

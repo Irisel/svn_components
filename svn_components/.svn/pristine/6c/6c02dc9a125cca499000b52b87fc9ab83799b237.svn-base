@@ -1,0 +1,7 @@
+export function tpl_form(method) {
+  return {
+      type: 'show_form',
+      method
+  }
+}
+

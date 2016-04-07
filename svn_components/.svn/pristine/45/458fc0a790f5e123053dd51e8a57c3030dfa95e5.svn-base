@@ -1,0 +1,31 @@
+import fetch from 'isomorphic-fetch';
+
+export const FETCH_API = {
+     'USER_INIT': '/user'
+};
+
+function requestPosts(method) {
+  return {
+    type: 'REQUEST_POSTS',
+    method
+  }
+}
+
+function receivePosts(method, json) {
+  return {
+    type: 'RECEIVE_POSTS',
+    posts: json,
+    method,
+    receivedAt: Date.now()
+  }
+}
+
+export function fetchPosts(method) {
+  return dispatch => {
+    dispatch(requestPosts(method));
+    return fetch(FETCH_API[method])
+      .then(response => response.json())
+      .then(json => dispatch(receivePosts(method, json)))
+  }
+}
+

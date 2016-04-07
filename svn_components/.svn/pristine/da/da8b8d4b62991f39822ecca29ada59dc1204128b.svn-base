@@ -1,0 +1,55 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Router, Route, Link, IndexRoute, browserHistory, Redirect} from 'react-router';
+
+import {createStore} from 'redux';
+import { Provider } from 'react-redux';
+
+import Home from './containers/home'
+
+import homeRedu from './reducers/home'
+
+let homeStore = createStore(homeRedu);
+
+
+class Hello extends React.Component{
+  render(){
+          return (
+              <div className="full_alert">
+                  <div className="alert">
+                      <h1>Hello World!</h1>
+                  </div>
+              </div>
+              )
+      }
+  }
+;
+
+class NotFound404 extends React.Component{
+  render(){
+          return (
+              <div className="full_alert">
+                  <div className="alert">
+                      <h1>NotFound404!</h1>
+                  </div>
+              </div>
+              )
+      }
+  }
+;
+
+
+ReactDOM.render(
+        <Provider store={homeStore}>
+	        <Router history={browserHistory}>
+                <Route path="/app/home" component={Home}>
+                    <Route path="rent" component={Hello}/>
+                    <Route path="provide" component={Hello}/>
+                    <Route path="return" component={Hello}/>
+                </Route>
+                <Redirect from="/app" to="/app/home" />
+                <Route path="*" component={NotFound404}>
+                </Route>
+	        </Router>
+        </Provider>
+	, document.getElementById('app')) ;

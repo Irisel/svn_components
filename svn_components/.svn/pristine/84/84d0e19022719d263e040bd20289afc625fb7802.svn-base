@@ -1,0 +1,33 @@
+import React from 'react';
+import {Link} from 'react-router';
+
+const li_link = React.createClass({
+  getInitialState: function() {
+    return {
+        links: this.props.links || []
+    };
+  },
+
+  componentDidMount: function() {
+
+  },
+
+  render: function() {
+      var links = this.state.links;
+      var linksList = links.map(function (link, index) {
+        return (
+          <li key={index}><Link  to={link.hash} activeClassName="active" className="clearfix">{link.name}</Link></li>
+        );
+      });
+      return (
+        <div className="area clearfix" id="area_href">
+            <div className="logo left"></div>
+            <ul  className="ul_href right">
+                {linksList}
+            </ul>
+        </div>
+      );
+    }
+});
+
+module.exports = li_link;
